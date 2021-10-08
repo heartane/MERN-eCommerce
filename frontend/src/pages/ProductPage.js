@@ -20,7 +20,7 @@ const ProductPage = ({ match }) => {
       setProduct(data);
     };
     fetchProducts();
-  }, []);
+  }, [match]);
   return (
     <>
       <Link className='btn btn-outline-dark my-3' to='/'>
