@@ -7,7 +7,6 @@ const connectDB = async () => {
       useNewUrlParser: true,
       autoIndex: true,
     });
-
     console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
   } catch (error) {
     console.error(`Error: ${error.message}`.red.underline.bold);
@@ -16,3 +15,4 @@ const connectDB = async () => {
 };
 
 export default connectDB;
+// 데이터베이스 연결
