@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'; //impt
-
 const Rating = ({ value, text, color }) => {
   return (
     <div className='rating'>
@@ -71,11 +69,5 @@ const Rating = ({ value, text, color }) => {
 Rating.defaultProps = {
   color: '#e6e600',
 };
-
-Rating.propTypes = {
-  value: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  color: PropTypes.string,
-}; // type check for props.
 
 export default Rating;
