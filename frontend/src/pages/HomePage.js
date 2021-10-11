@@ -1,29 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
+import { listProducts } from '../actions/productActions';
 import Product from '../components/Product';
-import axios from 'axios';
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
+  // useDispatch를 통해 state를 받고
+  // useSelector를 통해 state를 선택할 수 있으며
+  // 구조분해로 각각의 state를 떼어서
+  // 스크린에 뿌려줄 수 있다.
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products');
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []); // 두번째 인자에 dependencies -> 변경될 때 마다 로딩해 줄
-  // 일반적으로 안쪽에 써준 변수를 두번째 인자로 안 써주면 경고가 뜬다.
+    dispatch(listProducts());
+  }, [dispatch]); // fire off the action 액션을 쏴!
+
   return (
     <>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h3>{error}</h3>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };
