@@ -17,7 +17,7 @@ import Message from '../components/Message';
 import Rating from '../components/Rating';
 
 const ProductPage = ({ match, history }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
