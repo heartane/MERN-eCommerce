@@ -29,7 +29,18 @@ const userSchema = mongoose.Schema(
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
-};
+}; // 비밀번호 해독 함수
+
+// hashing password  manually in the controller
+// this little middleware is really helpful
+// don't need to mock up controller with all that stuff
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt); // 해시된 패스워드로 재할당
+}); // 비밀번호 암호화 함수
 
 const User = mongoose.model('User', userSchema);
 
