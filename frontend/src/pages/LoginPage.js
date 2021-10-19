@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login } from '../actions/userActions';
 import FormContainer from '../components/Form';
+import Loader from '../components/Loader';
 import Message from '../components/Message';
 
 // 로그인 화면에 필요한 상태: 이메일과 패스워드
@@ -19,12 +20,12 @@ const LoginPage = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
-
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userInfo, error } = userLogin;
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
     if (userInfo) {
@@ -41,6 +42,7 @@ const LoginPage = ({ location, history }) => {
     <FormContainer>
       <h1>Sign In</h1>
       {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <FormGroup controlId='email'>
           <FormLabel>Email Address</FormLabel>
