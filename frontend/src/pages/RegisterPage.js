@@ -100,7 +100,7 @@ const RegisterPage = ({ location, history }) => {
       <Row className='py-3'>
         <Col>
           Have an Account already?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/login'}>
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
             Login
           </Link>
         </Col>
