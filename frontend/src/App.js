@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='/products/:id' component={ProductPage} />
           <Route path='/cart/:id?' component={CartPage} />
           <Route path='/shipping' component={ShippingPage} />
+          <Route path='/payment' component={PaymentPage} />
           <Route exact path='/' component={HomePage} />
         </Container>
       </main>

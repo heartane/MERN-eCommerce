@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import {
   Button,
-  Col,
   Form,
   FormControl,
   FormGroup,
   FormLabel,
-  Row,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 import FormContainer from '../components/Form';
 
 const ShippingPage = ({ history }) => {
@@ -26,11 +25,12 @@ const ShippingPage = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    history.push('/payment');
+    history.push('/payment'); // next process :)
   };
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <FormGroup className='my-3' controlId='address'>
