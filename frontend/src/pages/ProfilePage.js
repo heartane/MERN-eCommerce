@@ -10,9 +10,10 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, UpdateUserProfile } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const ProfilePage = ({ history }) => {
   const [name, setName] = useState('');
@@ -29,19 +30,23 @@ const ProfilePage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     } // 유저 정보가 없다면 로그인 페이지로 이동
     else {
-      if (!user.name) {
+      if (!user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails('profile'));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [userInfo, history, dispatch, user]);
+  }, [userInfo, history, dispatch, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -51,6 +56,7 @@ const ProfilePage = ({ history }) => {
     } else {
       setMessage('');
       // DISPATCH UPDATE PROFILE
+      dispatch(UpdateUserProfile({ id: user._id, name, email, password })); // pass user
     }
   };
   return (
@@ -59,6 +65,7 @@ const ProfilePage = ({ history }) => {
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
+        {success && <Message variant='success'>Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <FormGroup className='my-3' controlId='name'>
