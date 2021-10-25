@@ -44,7 +44,7 @@ const LoginPage = ({ location, history }) => {
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <FormGroup controlId='email'>
+        <FormGroup className='my-3' controlId='email'>
           <FormLabel>Email Address</FormLabel>
           <FormControl
             type='email'
@@ -54,7 +54,7 @@ const LoginPage = ({ location, history }) => {
           ></FormControl>
         </FormGroup>
 
-        <FormGroup controlId='password'>
+        <FormGroup className='my-3' controlId='password'>
           <FormLabel>Password</FormLabel>
           <FormControl
             type='password'
