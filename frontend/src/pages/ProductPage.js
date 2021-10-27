@@ -84,8 +84,9 @@ const ProductPage = ({ match, history }) => {
                     <Row>
                       <Col>Quantity</Col>
                       <Col>
-                        <Form.Control
+                        <Form
                           as='select'
+                          className='form-select'
                           value={quantity}
                           onChange={(e) => {
                             setQuantity(e.target.value);
@@ -96,7 +97,7 @@ const ProductPage = ({ match, history }) => {
                               {x + 1}
                             </option>
                           ))}
-                        </Form.Control>
+                        </Form>
                       </Col>
                     </Row>
                   </ListGroupItem>
@@ -104,7 +105,7 @@ const ProductPage = ({ match, history }) => {
 
                 <ListGroupItem className='d-grid gap-2'>
                   <Button
-                    className='btn btn-lg btn-success'
+                    className='btn btn-success'
                     type='button'
                     disabled={!product.countInStock}
                     onClick={addToCartHandler}

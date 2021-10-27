@@ -55,12 +55,13 @@ const CartPage = ({ match, location, history }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/products/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
-                    <Form.Control
+                    <Form
                       as='select'
+                      className='form-select'
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
@@ -73,7 +74,7 @@ const CartPage = ({ match, location, history }) => {
                           {x + 1}
                         </option>
                       ))}
-                    </Form.Control>
+                    </Form>
                   </Col>
                   <Col md={2}>
                     <Button
@@ -103,7 +104,7 @@ const CartPage = ({ match, location, history }) => {
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
             </ListGroupItem>
-            <ListGroupItem>
+            <ListGroupItem className='d-grid gap-2'>
               <Button
                 type='button'
                 className='btn-block'
