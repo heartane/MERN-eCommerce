@@ -9,8 +9,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getUserDetails, UpdateUserProfile } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
@@ -56,7 +55,7 @@ const ProfilePage = ({ history }) => {
     } else {
       setMessage('');
       // DISPATCH UPDATE PROFILE
-      dispatch(UpdateUserProfile({ id: user._id, name, email, password })); // pass user
+      dispatch(updateUserProfile({ id: user._id, name, email, password })); // pass user
     }
   };
   return (
