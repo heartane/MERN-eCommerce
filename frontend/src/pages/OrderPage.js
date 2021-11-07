@@ -41,7 +41,7 @@ const OrderPage = ({ match }) => {
     };
 
     if (!order || successPay) {
-      dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_PAY_RESET }); // 무한루프 빠져나오기
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {

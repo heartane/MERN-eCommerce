@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema(
     },
   },
   {
-    timeStamps: true,
+    timestamps: true,
   } // 두번쨰 인자로 옵션을 줄 수 있는데 시간 필드를 자동으로 생성해준다.
 );
 
