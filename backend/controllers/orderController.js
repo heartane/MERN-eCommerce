@@ -36,4 +36,21 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems };
+// @desc   Get order by Id
+// @route  GET /api/orders/:id
+// @access Private
+const GetOrderById = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  ); // papulate : Order와 이어진 컬렉션에서 원하는 필드를 묶어 가져올 때
+
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+export { addOrderItems, GetOrderById };
