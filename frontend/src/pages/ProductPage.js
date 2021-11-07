@@ -17,7 +17,7 @@ import Message from '../components/Message';
 import Rating from '../components/Rating';
 
 const ProductPage = ({ match, history }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -27,7 +27,7 @@ const ProductPage = ({ match, history }) => {
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${quantity}`);
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
   return (
@@ -87,9 +87,9 @@ const ProductPage = ({ match, history }) => {
                         <Form
                           as='select'
                           className='form-select'
-                          value={quantity}
+                          value={qty}
                           onChange={(e) => {
-                            setQuantity(e.target.value);
+                            setQty(e.target.value);
                           }}
                         >
                           {[...Array(product.countInStock).keys()].map((x) => (
