@@ -6,15 +6,22 @@ import { listUsers } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-const UserListPage = () => {
+const UserListPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
   const { loading, users, error } = userList;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers());
+    } else {
+      history.push('/login');
+    } // 관리자 유저가 아니라면 아예 접근 못하게!
+  }, [dispatch, history, userInfo]);
 
   const deleteHandler = (is) => {};
   return (
