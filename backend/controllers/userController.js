@@ -116,4 +116,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, authUser, getUserProfile, updateUserProfile };
+// @desc   Get all users
+// @route  GET /api/users
+// @access Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+  // Admin 관리자 유저만 이 정보에 대한 권한이 있다.
+
+  const users = await User.find({});
+  res.json(users);
+});
+
+export { registerUser, authUser, getUserProfile, updateUserProfile, getUsers };
