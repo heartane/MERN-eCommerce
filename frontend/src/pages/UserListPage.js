@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
@@ -15,15 +15,23 @@ const UserListPage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       history.push('/login');
     } // 관리자 유저가 아니라면 아예 접근 못하게!
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
-  const deleteHandler = (is) => {};
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteUser(id));
+    }
+  };
+
   return (
     <div>
       <h1>Users</h1>
