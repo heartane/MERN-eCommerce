@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { listProducts } from '../actions/productActions';
+import { deleteProduct, listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
@@ -11,6 +11,13 @@ const ProductListPage = ({ history, match }) => {
 
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -21,11 +28,11 @@ const ProductListPage = ({ history, match }) => {
     } else {
       history.push('/login');
     } // 관리자 유저가 아니라면 아예 접근 못하게!
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
-      // dispatch(deleteProducts(id));
+      dispatch(deleteProduct(id));
     }
   };
 
@@ -45,6 +52,8 @@ const ProductListPage = ({ history, match }) => {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (

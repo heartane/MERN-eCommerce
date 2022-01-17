@@ -14,7 +14,7 @@ const reviewSchema = mongoose.Schema(
 const productSchema = mongoose.Schema(
   {
     user: {
-      // 어느 유저가 선택한 상품인지 알아야하기 때문에 연결되어 있다.
+      // 어느 관리자가 등록한 상품인지
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
